@@ -38,6 +38,7 @@ export const api = {
 register:(payload) => request('/auth/register',{ method: 'POST', body: payload }),
  login: (payload) => request('/auth/login', { method: 'POST', body: payload }),
    getNotes: () => request('/notes'),
+   getMe: () => request('/auth/me'),
   getNote: (id) => request(`/notes/${id}`),
   createNote: (payload) => request('/notes', { method: 'POST', body: payload }),
   updateNote: (id, payload) => request(`/notes/${id}`, { method: 'PUT', body: payload }),
