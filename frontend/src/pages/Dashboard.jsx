@@ -7,6 +7,9 @@ function Dashboard() {
     const[notes,setNotes] = useState([])
     const[loading,setLoading] = useState(true)
 
+    const [title,setTitle] = useState('')
+    const [content,setContent] = useState('')
+
     useEffect(() => {
         const loadNotes = async () =>{
         const data = await api.getNotes()
@@ -15,6 +18,16 @@ function Dashboard() {
         }
         loadNotes()
         },[])
+
+    const handleCreate = async(e) =>{
+        e.preventDefault()
+        const newNote = await api.createNote({title,content})
+        setNotes([newNote,...notes])
+        setTitle('')
+        setContent('')
+        }
+
+
     if(loading){
         return <p>Loading...</p>
         }
@@ -22,6 +35,11 @@ function Dashboard() {
         <div>
         <h1>Welcome {user?.name}</h1>
         <button onClick={logout}>Log out</button>
+        <form onSubmit={handleCreate}>
+            <input value={title} onChange={(e) => setTitle(e.target.value)}/>
+            <textarea value={content} onChange={(e) => setContent(e.target.value)}/>
+            <button type ="submit">Create note </button>
+             </form>
         <ul>
             {notes.map((note)=>(
                 <li key={note.id}>{note.title}</li>
