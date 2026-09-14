@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { api } from '../api/client'
 import { useAuth } from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 function Dashboard() {
     const {user,logout} = useAuth()
@@ -42,7 +43,7 @@ function Dashboard() {
              </form>
         <ul>
             {notes.map((note)=>(
-                <li key={note.id}>{note.title}</li>
+                <li key={note.id}><Link to = {`/notes/${note.id}`}>{note.title}</Link></li>
                 ))}
          </ul>
         </div>
