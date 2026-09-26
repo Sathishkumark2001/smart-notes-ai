@@ -1,4 +1,4 @@
-import { useParams,useNavigate  } from 'react-router-dom'
+import { useParams,useNavigate, Link  } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { api } from '../api/client'
 
@@ -42,19 +42,32 @@ const handleSummarize = async () =>{
        }
 
     return(
-            <div>
-        <form onSubmit = {handleSave}>
+            <div className="min-h-screen bg-gray-50 py-10 px-4">
+                <div className="max-w-2xl mx-auto">
+                    <Link to="/" className="text-blue-600 hover:underline text-sm mb-4 inline-block">← Back to notes</Link>
+            <form onSubmit = {handleSave} className="bg-white p-6 rounded-lg shadow-md space-y-4">
             <input
             value={title}
-            onChange={(e)=>setTitle(e.target.value)} />
+            onChange={(e)=>setTitle(e.target.value)}
+             className="w-full border border-gray-300 rounded-md px-3 py-2 text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"/>
              <textarea
               value={content}
-              onChange={(e)=>setContent(e.target.value)} />
-              <button type="submit">Save</button>
-              <button type="button" onClick={handleDelete}>Delete</button>
-              <button type="button" onClick={handleSummarize}>Summarize</button>
+              onChange={(e)=>setContent(e.target.value)}
+               rows={8}
+               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+               <div className="flex gap-2">
+              <button type="submit"  className="bg-blue-600 text-white rounded-md px-4 py-2 font-medium hover:bg-blue-700 transition">Save</button>
+              <button type="button" onClick={handleDelete} className="bg-red-600 text-white rounded-md px-4 py-2 font-medium hover:bg-red-700 transition ml-auto">Delete</button>
+              <button type="button" onClick={handleSummarize} className="bg-green-600 text-white rounded-md px-4 py-2 font-medium hover:bg-green-700 transition">Summarize</button>
+                 </div>
                 </form>
-                {note.summary && <p>Summary: {note.summary}</p>}
+                {note.summary && (
+                                     <div className="bg-white p-4 rounded-lg shadow-md mt-4">
+                                         <h3 className="text-sm font-semibold text-gray-500 mb-1">AI Summary</h3>
+                                         <p className="text-gray-800">{note.summary}</p>
+                                     </div>
+                                 )}
+                    </div>
                     </div>
         )
 
