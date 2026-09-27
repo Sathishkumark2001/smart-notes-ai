@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import NoteEditor from './pages/NoteEditor'
+import PrivateRoute from './components/PrivateRoute'
 
 
 function App() {
@@ -12,8 +13,8 @@ function App() {
               <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/notes/:id" element={<NoteEditor />} />
+              <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+              <Route path="/notes/:id" element={<PrivateRoute><NoteEditor /></PrivateRoute>} />
                   </Routes>
               </AuthProvider>
 

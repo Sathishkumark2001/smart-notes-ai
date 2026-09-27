@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate  } from 'react-router-dom'
 
 function Register() {
   const { register } = useAuth()
@@ -8,12 +8,14 @@ function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     try {
       await register(name, email, password)
+      navigate('/')
     } catch (err) {
       setError(err.message)
     }
@@ -27,18 +29,21 @@ function Register() {
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        placeholder="Name"
           className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
           className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
           className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
